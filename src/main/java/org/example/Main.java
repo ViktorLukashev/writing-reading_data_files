@@ -1,10 +1,13 @@
 package org.example;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+
 public class Main {
     public static void main(String[] args) {
+        printFile();
+        readerFile();
+    }
+    public static void printFile() {
         try {
             File file = new File("myFile.txt");
 
@@ -13,6 +16,7 @@ public class Main {
 
             PrintWriter pw = new PrintWriter(file); // записываем данные в файл
             pw.println("First line");
+            pw.println("second line");
             pw.println("Hello");
             pw.close();
 
@@ -20,4 +24,26 @@ public class Main {
             System.out.println("Error: " + exception);
         }
     }
+
+    public static void readerFile() {
+        BufferedReader br = null;
+        try {
+                br = new BufferedReader(new FileReader("myFile.txt"));
+                String line;
+                while ((line = br.readLine()) != null) {
+                    System.out.println(line);
+                }
+
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                System.out.println("Error: " + e);
+            }
+        }
+    }
+
+
 }
